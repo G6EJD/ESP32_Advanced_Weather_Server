@@ -7,7 +7,12 @@ Monitor the serial port for the assigned IP address. E.g. http://192.168.0.19/ o
 
 Then connect to server with http://192.168.0.19/ or http://wxserver.local/
 
-System Set-up
+System Set-up:
+
+Get a free OWM API Key from here: https://openweathermap.org/
+
+Update the 'owm_credentials.h; tab with your credentials for WiFi and OWM
+
 1. Enter your City/Location name, choose any name.
 2. Enter your location Latitude and Longitude, e.g. 51.38, -2.33
    - Use negative numbers for South of the Equator and East of the Meridian.
