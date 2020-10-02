@@ -42,4 +42,5 @@ vi Vietnamese
 zh_cn Chinese Simplified, zh_tw Chinese Traditional, zu Zulu
     - Example: German set lauguage = 'de'
     
- ![alt_text, width="600"](/Waveshare_4_2.jpg)
+ ![alt_text, width="600"](/WX V2-1.jpg)
+
