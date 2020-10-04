@@ -133,10 +133,10 @@ String TXT_HI               = "Hi";
 String TXT_LO               = "Lo";
 String TXT_RH               = "RH";
 
-int PageWidth               = 1024; // Adjust for desired webpage width
-int ForecastPeriods         = 9;    // Adjust number of forecast periods to display, maximum 96hrs (96/3 / 8 = 4-days
-//################  VERSION  ###########################################
-String version = "2.0";      // Programme version, see change log at end
+//int PageWidth               = 1024; // Adjust for desired webpage width
+//int ForecastPeriods         = 9;    // Adjust number of forecast periods to display, maximum 96hrs (96/3 / 8 = 4-days
+////################  VERSION  ###########################################
+//String version = "2.0";      // Programme version, see change log at end
 
 //################ PROGRAM VARIABLES and OBJECTS ################
 String Time_str, Date_str, webpage, Wx_Description, WindUnits = " mps", DataFile = "params.txt"; // strings for Time, Date and webpage, etc
@@ -214,6 +214,7 @@ void setup() {
   webserver.on("/wxmap", Weathermap);        // Process a weather map request
   webserver.on("/setup", SystemSetup);       // Process a setup request
   webserver.on("/prefillEN", PreFill_EN);    // Process a prefill data request
+  webserver.on("/prefillES", PreFill_ES);    // Process a prefill data request
   webserver.on("/handleinput", HandleInput); // Process inputs from the client
   webserver.on("/help", Help);               // Process a help request
   webserver.onNotFound(handleNotFound);      // Handle page not found errors
@@ -487,7 +488,7 @@ void Help() {
   webpage += "<a>vi Vietnamese</a><br>";
   webpage += "<a>zh_cn Chinese Simplified, zh_tw Chinese Traditional, zu Zulu</a><br>";
   webpage += "</div></div>";
-  webpage += "<a>&nbsp;&nbsp;&nbsp;<i> - Example: German set lauguage = 'de'</i></a><br>";
+  webpage += "<a>&nbsp;&nbsp;&nbsp;<i> - Example: German set language = 'de'</i></a><br>";
   webpage += "<h4>Weather descriptions used and translated by OpenWeatherMap:</h4>";
   webpage += "<a>Clear sky, Few clouds, Scattered clouds, Broken clouds, Shower rain, Rain, Heavy Intensity Rain, Moderate Rain, Light Rain, Thunderstorm, Snow, Mist</a><br>";
   webpage += "<h4>UV Index</h4>";
@@ -787,95 +788,6 @@ void HandleInput() {
   Homepage();
 }
 //#########################################################################################
-void PreFill_EN() {
-  City                = "Bath";
-  Latitude            = "51.3704";
-  Longitude           = "-2.1376";
-  Language            = "en";
-  Hemisphere          = "north";
-  Units               = "M";
-  TXT_FORECAST_GRAPHS = "5 day / 3 hour forecast";
-  TXT_TEMPDEWPOINT    = "Temperature / Dewpoint";
-  TXT_TEMPERATURE     = "Temperature";
-  TXT_FEELSLIKE       = "Feelslike";
-  TXT_HUMIDITY        = "Humidity";
-  TXT_DEWPOINT        = "Dewpoint";
-  TXT_WINDCHILL       = "Windchill";
-  TXT_WCHILL_HINDEX   = "Windchill / Heat Index";
-  TXT_HEATINDEX       = "Heat Index";
-  TXT_WINDSPEED       = "Windspeed";
-  TXT_PRESSURE        = "Pressure";
-  TXT_CLOUDCOVER      = "Cloud Cover";
-  TXT_VISIBILITY      = "Visibility";
-  TXT_PRECIPITATION   = "Precipitation";
-  TXT_RAINFALL        = "Rainfall";
-  TXT_RAINRATE        = "Rainrate";
-  TXT_SNOWFALL        = "Snowfall";
-  TXT_SNOWRATE        = "Snowrate";
-  TXT_UVINDEX         = "UV Index";
-  //Moon phases
-  TXT_MOON_PHASE1     = "New";
-  TXT_MOON_PHASE2     = "Waxing Crescent";
-  TXT_MOON_PHASE3     = "First Quarter";
-  TXT_MOON_PHASE4     = "Waxing Gibbous";
-  TXT_MOON_PHASE5     = "Full";
-  TXT_MOON_PHASE6     = "Waning Gibbous";
-  TXT_MOON_PHASE7     = "Third Quarter";
-  TXT_MOON_PHASE8     = "Waning Crescent";
-  //Wind
-  TXT_N               = "N";
-  TXT_NE              = "NE";
-  TXT_E               = "E";
-  TXT_SE              = "SE";
-  TXT_S               = "S";
-  TXT_SW              = "SW";
-  TXT_W               = "W";
-  TXT_NW              = "NW";
-  WindspeedUnits      = MPH;    // Change to your desired display format e.g. for KPH 'MetricWindspeed = KPH';
-  TXT_WINDUNITS       = "mph"; // Ensure text here matahces units chosen above! Use a leading space
-  //Windspeed warning colours based on Beaufort scale in kph *** NOTE these are HTML colours, don't translate!
-  TXT_BFS0            = "Calm";
-  TXT_BFS1            = "Light Air";
-  TXT_BFS2            = "Light Breeze";
-  TXT_BFS3            = "Gentle Breeze";
-  TXT_BFS4            = "Moderate Breeze";
-  TXT_BFS5            = "Fresh Breeze";
-  TXT_BFS6            = "Strong Breeze";
-  TXT_BFS7            = "High Wind";
-  TXT_BFS8            = "Gale";
-  TXT_BFS9            = "Severe Gale";
-  TXT_BFS10           = "Storm";
-  TXT_BFS11           = "Violent Storm";
-  TXT_BFS12           = "Hurricane";
-  //Days of the week
-  TXT_SUN             = "Sun";
-  TXT_MON             = "Mon";
-  TXT_TUE             = "Tue";
-  TXT_WED             = "Wed";
-  TXT_THU             = "Thu";
-  TXT_FRI             = "Fri";
-  TXT_SAT             = "Sat";
-  //Months
-  TXT_JAN             = "Jan";
-  TXT_FEB             = "Feb";
-  TXT_MAR             = "Mar";
-  TXT_APR             = "Apr";
-  TXT_MAY             = "May";
-  TXT_JUN             = "Jun";
-  TXT_JUL             = "Jul";
-  TXT_AUG             = "Aug";
-  TXT_SEP             = "Sep";
-  TXT_OCT             = "Oct";
-  TXT_NOV             = "Nov";
-  TXT_DEC             = "Dec";
-  TXT_HI              = "Hi";
-  TXT_LO              = "Lo";
-  TXT_RH              = "RH";
-  SaveSettings();
-  UpdateData();
-  Homepage();
-}
-//#########################################################################################
 void append_page_header(bool Header) {
   webpage  = "<!DOCTYPE html>";
   webpage += "<html lang='" + Language + "' charset='utf-8' xml:lang='" + Language + "' xmlns='http://www.w3.org/1999/xhtml'>";
@@ -938,7 +850,8 @@ void append_page_footer() { // Saves repeating many lines of code for HTML page 
   webpage += "<li><a href = '/'>Home</a></li>";
   webpage += "<li><a href = '/wxmap'>Weather Map</a></li>";
   webpage += "<li><a href = '/setup'>System Setup</a></li>";
-  webpage += "<li><a href = '/prefillEN'>Pre-Fill Settings</a></li>";
+  webpage += "<li><a href = '/prefillEN'>Pre-Fill EN</a></li>";
+  webpage += "<li><a href = '/prefillES'>Pre-Fill ES</a></li>";
   webpage += "<li><a href = '/help'>Help</a></li></ul>";
   webpage += "<p>&copy; Open Weather Map Data and Icons 2020 / ";
   webpage += "&copy; " + String(char(byte(0x40 >> 1))) + String(char(byte(0x88 >> 1))) + String(char(byte(0x5c >> 1))) + String(char(byte(0x98 >> 1))) + String(char(byte(0x5c >> 1)));
