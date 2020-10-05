@@ -18,6 +18,10 @@
   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   See more at http://www.dsbird.org.uk
 */
+
+//#define LANG_EN
+#define LANG_ES
+
 #include "owm_credentials.h" // See 'owm_credentials' tab and enter your OWM API key and set the Wifi SSID and PASSWORD
 #include <ArduinoJson.h>     // https://github.com/bblanchon/ArduinoJson Install by: Sketch/ Include Library / Manage Libaries / enter 'JSON', find, select then install
 #include <WiFi.h>            // Built-in
@@ -26,49 +30,186 @@
 #include "ESPmDNS.h"         // Built-in
 #include <HTTPClient.h>      // Built-in
 #include <SPIFFS.h>          // Built-in
-//########################################################################################
-//Languagetranslation values, adjust "text" values for your language
 
-//Temperature, Dewpoint, Humidity, Windchill, HeatIndex, Windspeed, Pressure, Rainfall, Snowfall
-String TXT_FORECAST_GRAPHS = "5 day / 3 hour forecast";
-String TXT_TEMPDEWPOINT    = "Temperature / Dewpoint";
-String TXT_TEMPERATURE     = "Temperature";
-String TXT_FEELSLIKE       = "Feelslike";
-String TXT_HUMIDITY        = "Humidity";
-String TXT_DEWPOINT        = "Dewpoint";
-String TXT_WINDCHILL       = "Windchill";
-String TXT_WCHILL_HINDEX   = "Windchill / Heat Index";
-String TXT_HEATINDEX       = "Heat Index";
-String TXT_WINDSPEED       = "Windspeed";
-String TXT_PRESSURE        = "Pressure";
-String TXT_CLOUDCOVER      = "Cloud Cover";
-String TXT_VISIBILITY      = "Visibility";
-String TXT_PRECIPITATION   = "Precipitation";
-String TXT_RAINFALL        = "Rainfall";
-String TXT_RAINRATE        = "Rainrate";
-String TXT_SNOWFALL        = "Snowfall";
-String TXT_SNOWRATE        = "Snowrate";
-String TXT_UVINDEX         = "UV Index";
-//Moon phases
-String TXT_MOON_PHASE1     = "New";
-String TXT_MOON_PHASE2     = "Waxing Crescent";
-String TXT_MOON_PHASE3     = "First Quarter";
-String TXT_MOON_PHASE4     = "Waxing Gibbous";
-String TXT_MOON_PHASE5     = "Full";
-String TXT_MOON_PHASE6     = "Waning Gibbous";
-String TXT_MOON_PHASE7     = "Third Quarter";
-String TXT_MOON_PHASE8     = "Waning Crescent";
+#ifdef LANG_EN
+  //Temperature, Dewpoint, Humidity, Windchill, HeatIndex, Windspeed, Pressure, Rainfall, Snowfall
+  String TXT_FORECAST_GRAPHS = "5 day / 3 hour forecast";
+  String TXT_TEMPDEWPOINT    = "Temperature / Dewpoint";
+  String TXT_TEMPERATURE     = "Temperature";
+  String TXT_FEELSLIKE       = "Feelslike";
+  String TXT_HUMIDITY        = "Humidity";
+  String TXT_DEWPOINT        = "Dewpoint";
+  String TXT_WINDCHILL       = "Windchill";
+  String TXT_WCHILL_HINDEX   = "Windchill / Heat Index";
+  String TXT_HEATINDEX       = "Heat Index";
+  String TXT_WINDSPEED       = "Windspeed";
+  String TXT_PRESSURE        = "Pressure";
+  String TXT_CLOUDCOVER      = "Cloud Cover";
+  String TXT_VISIBILITY      = "Visibility";
+  String TXT_PRECIPITATION   = "Precipitation";
+  String TXT_RAINFALL        = "Rainfall";
+  String TXT_RAINRATE        = "Rainrate";
+  String TXT_SNOWFALL        = "Snowfall";
+  String TXT_SNOWRATE        = "Snowrate";
+  String TXT_UVINDEX         = "UV Index";
+  //Moon phases
+  String TXT_MOON_PHASE1     = "New";
+  String TXT_MOON_PHASE2     = "Waxing Crescent";
+  String TXT_MOON_PHASE3     = "First Quarter";
+  String TXT_MOON_PHASE4     = "Waxing Gibbous";
+  String TXT_MOON_PHASE5     = "Full";
+  String TXT_MOON_PHASE6     = "Waning Gibbous";
+  String TXT_MOON_PHASE7     = "Third Quarter";
+  String TXT_MOON_PHASE8     = "Waning Crescent";
+  //Wind
+  String TXT_N               = "N";
+  String TXT_NE              = "NE";
+  String TXT_E               = "E";
+  String TXT_SE              = "SE";
+  String TXT_S               = "S";
+  String TXT_SW              = "SW";
+  String TXT_W               = "W";
+  String TXT_NW              = "NW";
+  String TXT_BFS0            = "Calm";
+  String TXT_BFS1            = "Light Air";
+  String TXT_BFS2            = "Light Breeze";
+  String TXT_BFS3            = "Gentle Breeze";
+  String TXT_BFS4            = "Moderate Breeze";
+  String TXT_BFS5            = "Fresh Breeze";
+  String TXT_BFS6            = "Strong Breeze";
+  String TXT_BFS7            = "High Wind";
+  String TXT_BFS8            = "Gale";
+  String TXT_BFS9            = "Severe Gale";
+  String TXT_BFS10           = "Storm";
+  String TXT_BFS11           = "Violent Storm";
+  String TXT_BFS12           = "Hurricane";
+  //Days of the week
+  String TXT_SUN             = "Sun";
+  String TXT_MON             = "Mon";
+  String TXT_TUE             = "Tue";
+  String TXT_WED             = "Wed";
+  String TXT_THU             = "Thu";
+  String TXT_FRI             = "Fri";
+  String TXT_SAT             = "Sat";
+  const char* weekday_D[]    = { TXT_SUN.c_str(), TXT_MON.c_str(), TXT_TUE.c_str(), TXT_WED.c_str(), TXT_THU.c_str(), TXT_FRI.c_str(), TXT_SAT.c_str() };
+  //Months
+  String TXT_JAN             = "Jan";
+  String TXT_FEB             = "Feb";
+  String TXT_MAR             = "Mar";
+  String TXT_APR             = "Apr";
+  String TXT_MAY             = "May";
+  String TXT_JUN             = "Jun";
+  String TXT_JUL             = "Jul";
+  String TXT_AUG             = "Aug";
+  String TXT_SEP             = "Sep";
+  String TXT_OCT             = "Oct";
+  String TXT_NOV             = "Nov";
+  String TXT_DEC             = "Dec";
+  const char* month_M[]      = { TXT_JAN.c_str(), TXT_FEB.c_str(), TXT_MAR.c_str(), TXT_APR.c_str(), TXT_MAY.c_str(), TXT_JUN.c_str(), TXT_JUL.c_str(), TXT_AUG.c_str(), TXT_SEP.c_str(), TXT_OCT.c_str(), TXT_NOV.c_str(), TXT_DEC.c_str() };
+  // High Low and Relative Humidity
+  String TXT_HI               = "Hi";
+  String TXT_LO               = "Lo";
+  String TXT_RH               = "RH";
+  // Interface labels
+  String TXT_HOME             = "Home";
+  String TXT_WMAP             = "Weather Map";
+  String TXT_SETUP            = "System Setup";
+  String TXT_PREFILL          = "Pre-Fill";
+  String TXT_HELP             = "Help";
+  String TXT_TITLE            = "ESP Weather Server";
+  String TXT_BEAUFORT         = "Beaufort Scale";
+#endif
+#ifdef LANG_ES
+  //Temperature, Dewpoint, Humidity, Windchill, HeatIndex, Windspeed, Pressure, Rainfall, Snowfall
+  String TXT_FORECAST_GRAPHS = "Pronóstico a 5 días / 3 horas";
+  String TXT_TEMPDEWPOINT    = "Temperatura / Punto de rocío";
+  String TXT_TEMPERATURE     = "Temperatura";
+  String TXT_FEELSLIKE       = "Sensación";
+  String TXT_HUMIDITY        = "Humedad";
+  String TXT_DEWPOINT        = "Punto de rocío";
+  String TXT_WINDCHILL       = "Sensación térmica";
+  String TXT_WCHILL_HINDEX   = "Sensación térmica / Índice de calor";
+  String TXT_HEATINDEX       = "Indice de calor";
+  String TXT_WINDSPEED       = "Velocidad del viento";
+  String TXT_PRESSURE        = "Presión";
+  String TXT_CLOUDCOVER      = "Nubosidad";
+  String TXT_VISIBILITY      = "Visibilidad";
+  String TXT_PRECIPITATION   = "Precipitación";
+  String TXT_RAINFALL        = "Lluvia";
+  String TXT_RAINRATE        = "Promedio de lluvia";
+  String TXT_SNOWFALL        = "Nieve";
+  String TXT_SNOWRATE        = "Promedio de nieve";
+  String TXT_UVINDEX         = "Índice UV";
+  //Moon phases
+  String TXT_MOON_PHASE1     = "Nueva";
+  String TXT_MOON_PHASE2     = "Creciente";
+  String TXT_MOON_PHASE3     = "Primer cuarto";
+  String TXT_MOON_PHASE4     = "Menguante";
+  String TXT_MOON_PHASE5     = "Llena";
+  String TXT_MOON_PHASE6     = "Menguante";
+  String TXT_MOON_PHASE7     = "Tercer cuarto";
+  String TXT_MOON_PHASE8     = "Creciente menguante";
+  //Wind
+  String TXT_N               = "N";
+  String TXT_NE              = "NE";
+  String TXT_E               = "E";
+  String TXT_SE              = "SE";
+  String TXT_S               = "S";
+  String TXT_SW              = "SO";
+  String TXT_W               = "O";
+  String TXT_NW              = "NO";
+  String TXT_BFS0            = "Calma";
+  String TXT_BFS1            = "Aire ligero";
+  String TXT_BFS2            = "Brisa ligera";
+  String TXT_BFS3            = "Suave brisa";
+  String TXT_BFS4            = "Brisa moderada";
+  String TXT_BFS5            = "Brisa fresca";
+  String TXT_BFS6            = "Brisa fuerte";
+  String TXT_BFS7            = "Fuerte viento";
+  String TXT_BFS8            = "Vendaval";
+  String TXT_BFS9            = "Vendaval severo";
+  String TXT_BFS10           = "Tormenta";
+  String TXT_BFS11           = "Tormenta violenta";
+  String TXT_BFS12           = "Huracán";
+  //Days of the week
+  String TXT_SUN             = "Dom";
+  String TXT_MON             = "Lun";
+  String TXT_TUE             = "Mar";
+  String TXT_WED             = "Mié";
+  String TXT_THU             = "Jue";
+  String TXT_FRI             = "Vie";
+  String TXT_SAT             = "Sáb";
+  const char* weekday_D[]    = { TXT_SUN.c_str(), TXT_MON.c_str(), TXT_TUE.c_str(), TXT_WED.c_str(), TXT_THU.c_str(), TXT_FRI.c_str(), TXT_SAT.c_str() };
+  //Months
+  String TXT_JAN             = "Ene";
+  String TXT_FEB             = "Feb";
+  String TXT_MAR             = "Mar";
+  String TXT_APR             = "Abr";
+  String TXT_MAY             = "May";
+  String TXT_JUN             = "Jun";
+  String TXT_JUL             = "Jul";
+  String TXT_AUG             = "Ago";
+  String TXT_SEP             = "Sep";
+  String TXT_OCT             = "Oct";
+  String TXT_NOV             = "Nov";
+  String TXT_DEC             = "Dic";
+  const char* month_M[]      = { TXT_JAN.c_str(), TXT_FEB.c_str(), TXT_MAR.c_str(), TXT_APR.c_str(), TXT_MAY.c_str(), TXT_JUN.c_str(), TXT_JUL.c_str(), TXT_AUG.c_str(), TXT_SEP.c_str(), TXT_OCT.c_str(), TXT_NOV.c_str(), TXT_DEC.c_str() };
+  // High Low and Relative Humidity
+  String TXT_HI               = "Máx.";
+  String TXT_LO               = "Mín.";
+  String TXT_RH               = "Humedad";
+  // Interface labels
+  String TXT_HOME             = "Principal";
+  String TXT_WMAP             = "Mapa Meteorológico";
+  String TXT_SETUP            = "Ajustes";
+  String TXT_PREFILL          = "Pre-Carga ES";
+  String TXT_HELP             = "Ayuda";
+  String TXT_TITLE            = "Servidor Meteorológico con ESP";
+  String TXT_BEAUFORT         = "Escala Beaufort";
+#endif
+
 //General
 const char* TXT_UPDATED    = ""; // or "Updated:"
-//Wind
-String TXT_N               = "N";
-String TXT_NE              = "NE";
-String TXT_E               = "E";
-String TXT_SE              = "SE";
-String TXT_S               = "S";
-String TXT_SW              = "SW";
-String TXT_W               = "W";
-String TXT_NW              = "NW";
 enum WindspdType {MPS, KPH, MPH, KTS}; // metres-per-second, kilometres-per-hour, miles-per-hour, knots
 WindspdType WindspeedUnits = MPH;      // Change to your desired display format e.g. for KPH 'MetricWindspeed = KPH';
 String TXT_WINDUNITS       = "mph";    // Ensure text here matahces units chosen above! Use a leading space
@@ -86,57 +227,19 @@ String SevereGale          = "gold";            // 75-88   km/hr Force 9
 String Storm               = "orange";          // 89-102  km/hr Force 10
 String ViolentStorm        = "red";             // 103-117 km/hr Force 11
 String Hurricane           = "crimson";         // >118    km/hr Force 12
-String TXT_BFS0            = "Calm";
-String TXT_BFS1            = "Light Air";
-String TXT_BFS2            = "Light Breeze";
-String TXT_BFS3            = "Gentle Breeze";
-String TXT_BFS4            = "Moderate Breeze";
-String TXT_BFS5            = "Fresh Breeze";
-String TXT_BFS6            = "Strong Breeze";
-String TXT_BFS7            = "High Wind";
-String TXT_BFS8            = "Gale";
-String TXT_BFS9            = "Severe Gale";
-String TXT_BFS10           = "Storm";
-String TXT_BFS11           = "Violent Storm";
-String TXT_BFS12           = "Hurricane";
-//Days of the week
-String TXT_SUN             = "Sun";
-String TXT_MON             = "Mon";
-String TXT_TUE             = "Tue";
-String TXT_WED             = "Wed";
-String TXT_THU             = "Thu";
-String TXT_FRI             = "Fri";
-String TXT_SAT             = "Sat";
-const char* weekday_D[]    = { TXT_SUN.c_str(), TXT_MON.c_str(), TXT_TUE.c_str(), TXT_WED.c_str(), TXT_THU.c_str(), TXT_FRI.c_str(), TXT_SAT.c_str() };
-//Months
-String TXT_JAN             = "Jan";
-String TXT_FEB             = "Feb";
-String TXT_MAR             = "Mar";
-String TXT_APR             = "Apr";
-String TXT_MAY             = "May";
-String TXT_JUN             = "Jun";
-String TXT_JUL             = "Jul";
-String TXT_AUG             = "Aug";
-String TXT_SEP             = "Sep";
-String TXT_OCT             = "Oct";
-String TXT_NOV             = "Nov";
-String TXT_DEC             = "Dec";
-const char* month_M[]      = { TXT_JAN.c_str(), TXT_FEB.c_str(), TXT_MAR.c_str(), TXT_APR.c_str(), TXT_MAY.c_str(), TXT_JUN.c_str(), TXT_JUL.c_str(), TXT_AUG.c_str(), TXT_SEP.c_str(), TXT_OCT.c_str(), TXT_NOV.c_str(), TXT_DEC.c_str() };
 //Graph Colours
 const String legendColour   = "black"; // Only use HTML colour names
 const String titleColour    = "purple";
 const String backgrndColour = "gainsboro";
 const String data1Colour    = "blue";
 const String data2Colour    = "red";
-// High Low and Relative Humidity
-String TXT_HI               = "Hi";
-String TXT_LO               = "Lo";
-String TXT_RH               = "RH";
 
 //int PageWidth               = 1024; // Adjust for desired webpage width
 //int ForecastPeriods         = 9;    // Adjust number of forecast periods to display, maximum 96hrs (96/3 / 8 = 4-days
 ////################  VERSION  ###########################################
 //String version = "2.0";      // Programme version, see change log at end
+
+
 
 //################ PROGRAM VARIABLES and OBJECTS ################
 String Time_str, Date_str, webpage, Wx_Description, WindUnits = " mps", DataFile = "params.txt"; // strings for Time, Date and webpage, etc
@@ -213,8 +316,7 @@ void setup() {
   webserver.on("/", Homepage);               // Process a homepage request
   webserver.on("/wxmap", Weathermap);        // Process a weather map request
   webserver.on("/setup", SystemSetup);       // Process a setup request
-  webserver.on("/prefillEN", PreFill_EN);    // Process a prefill data request
-  webserver.on("/prefillES", PreFill_ES);    // Process a prefill data request
+  webserver.on("/prefillEN", PreFill);       // Process a prefill data request
   webserver.on("/handleinput", HandleInput); // Process inputs from the client
   webserver.on("/help", Help);               // Process a help request
   webserver.onNotFound(handleNotFound);      // Handle page not found errors
@@ -417,7 +519,7 @@ void Homepage() {
   // Next section Beaufort table display
   webpage += "<table class='center' style='width:35%;font-size:0.7em;'>";
   webpage += " <tr>";
-  webpage += "  <td style='background-color:silver'>Beaufort Scale</td>";
+  webpage += "  <td style='background-color:silver'>" + TXT_BEAUFORT + "</td>";
   webpage += "  <td style='background-color:" + WindToClass(0, false)   + "'>0</td>";
   webpage += "  <td style='background-color:" + WindToClass(5, false)   + "'>1</td>";
   webpage += "  <td style='background-color:" + WindToClass(11, false)  + "'>2</td>";
@@ -441,89 +543,9 @@ void Homepage() {
 //#########################################################################################
 void Weathermap() {
   append_page_header(true);
-  webpage += "<h4>Weather Map</h4>";
+  webpage += "<h4>" + TXT_WMAP + "</h4>";
   webpage += "<iframe src='https://openweathermap.org/weathermap?basemap=map&cities=false&layer=radar&lat=";
   webpage +=  Latitude + "&lon=" + Longitude + "&zoom=10' width='100%' height='600px'></iframe>";
-  append_page_footer();
-  webserver.send(200, "text/html", webpage);
-  webpage = "";
-}
-//#########################################################################################
-void Help() {
-  append_page_header(true);
-  webpage += "<div style='text-align:left;'>";
-  webpage += "<h4>System Set-up</h4>";
-  webpage += "<a>1. Enter your City/Location name, choose any name.</a><br>";
-  webpage += "<a>2. Enter your location Latitude and Longitude, e.g. 51.38, -2.33</a><br>";
-  webpage += "<a>&nbsp;&nbsp;&nbsp;<i>- Use negative numbers for South of the Equator and East of the Meridian.</i></a><br>";
-  webpage += "<a>3. Enter your Language e.g. 'en', see below for OWM supported languages.</a><br>";
-  webpage += "<a>4. Enter your locations Hemisphere, North or South.</a><br>";
-  webpage += "<a>5. Enter your desired wind units either MPS (Metres-per-Second), MPH (Miles-per-hour), KPH (Kilometres-per-hour) or KTS (Knots)</a><br>";
-  webpage += "<a>6. Enter your desired Units either Metric or Imperial.</a><br>";
-  webpage += "<a>7. Enter the text for each item in the Language Translation Table. e.g. for 'de' 'Pressure' enter 'Druck'</a><br>";
-  webpage += "<a><i>&nbsp;&nbsp;&nbsp; - For months you could use '01' for JAN, etc.</i></a><br>";
-  webpage += "<a>8. Click on ENTER to save</a><br>";
-  webpage += "<h4>Open Weather Map supports the following languages:</h4>";
-  webpage += "<div class='row'><div class='helpcolumn'>";
-  webpage += "<a>af Afrikaans, al Albanian, ar Arabic, az Azerbaijani</a><br>";
-  webpage += "<a>bg Bulgarian</a><br>";
-  webpage += "<a>ca Catalan, cz Czech</a><br>";
-  webpage += "<a>da Danish, de German</a><br>";
-  webpage += "<a>el Greek, en English, eu Basque</a><br>";
-  webpage += "<a>fa Persian (Farsi), fi Finnish, fr French</a><br>";
-  webpage += "<a>gl Galician</a><br>";
-  webpage += "<a>he Hebrew, hi Hindi, hr Croatian, hu Hungarian</a><br>";
-  webpage += "<a>id Indonesian, it Italian</a><br>";
-  webpage += "<a>ja Japanese</a><br>";
-  webpage += "<a>kr Korean</a><br>";
-  webpage += "</div><div class='helpcolumn'>";
-  webpage += "<a>la Latvian, lt Lithuanian</a><br>";
-  webpage += "<a>mk Macedonian<a/><br>";
-  webpage += "<a>no Norwegian, nl Dutch</a><br>";
-  webpage += "<a>pl Polish, pt Portuguese, pt_br Português Brasil</a><br>";
-  webpage += "<a>ro Romanian, ru Russian</a><br>";
-  webpage += "<a>sv, se Swedish, sk Slovak, sl Slovenian, sp, es Spanish, sr Serbian</a><br>";
-  webpage += "<a>th Thai, tr Turkish</a><br>";
-  webpage += "<a>ua, uk Ukrainian</a><br>";
-  webpage += "<a>vi Vietnamese</a><br>";
-  webpage += "<a>zh_cn Chinese Simplified, zh_tw Chinese Traditional, zu Zulu</a><br>";
-  webpage += "</div></div>";
-  webpage += "<a>&nbsp;&nbsp;&nbsp;<i> - Example: German set language = 'de'</i></a><br>";
-  webpage += "<h4>Weather descriptions used and translated by OpenWeatherMap:</h4>";
-  webpage += "<a>Clear sky, Few clouds, Scattered clouds, Broken clouds, Shower rain, Rain, Heavy Intensity Rain, Moderate Rain, Light Rain, Thunderstorm, Snow, Mist</a><br>";
-  webpage += "<h4>UV Index</h4>";
-  webpage += "<a>The UV index (or ultraviolet index) is an international standard for measuring the ultraviolet radiation at a particular place and time.</a><br>";
-  webpage += "<a><i>&nbsp;&nbsp;&nbsp; - Note: OWM issues the UV index at 1200 / Midday for the next 24-hours</i></a><br>";
-  webpage += "<h4>Moon Phases</h4>";
-  webpage += "<table class='helptable'>";
-  webpage += "<tr><td>Phase-1</td><td>New</td></tr>";
-  webpage += "<tr><td>Phase-2</td><td>Waxing Crescent</td></tr>";
-  webpage += "<tr><td>Phase-3</td><td>First Quarter</td></tr>";
-  webpage += "<tr><td>Phase-4</td><td>Waxing Gibbous</td></tr>";
-  webpage += "<tr><td>Phase-5</td><td>Full</td></tr>";
-  webpage += "<tr><td>Phase-6</td><td>Waning Gibbous</td></tr>";
-  webpage += "<tr><td>Phase-7</td><td>Last Quarter</td></tr>";
-  webpage += "<tr><td>Phase-8</td><td>Waning Crescent</td></tr>";
-  webpage += "</table>";
-  webpage += "<h4>Beafort Scale wind speeds</h4>";
-  webpage += "<table class='helptable'>";
-  webpage += "<tr><td>Force-0</td><td>'Calm'</td><td>&lt;1 knot &lt;1 mph &lt;2 km/h &lt;0.5 m/s</td></tr>";
-  webpage += "<tr><td>Force-1</td><td>'Light Air'</td><td>1-3 knots 1-3 mph 2-5 km/h 0.5-1.5 m/s</td></tr>";
-  webpage += "<tr><td>Force-2</td><td>'Light Breeze'</td><td>4-6 knots 4-7 mph 6-11 km/h 1.6-3.3 m/s</td></tr>";
-  webpage += "<tr><td>Force-3</td><td>'Gentle Breeze'</td><td>7-10 knots 8-12 mph 12-19 km/h 3.4-5.5 m/s</td></tr>";
-  webpage += "<tr><td>Force-4</td><td>'Moderate Breeze'</td><td>11-16 knots 13-18 mph 20-28 km/h 5.6-7.9 m/s</td></tr>";
-  webpage += "<tr><td>Force-5</td><td>'Fresh Breeze'</td><td>17-21 knots 19-24 mph 29-38 km/h 8.0-10.7 m/s</td></tr>";
-  webpage += "<tr><td>Force-6</td><td>'Strong Breeze'</td><td>22-27 knots 25-31 mph 39-48 km/h 10.8-13.8 m/s</td></tr>";
-  webpage += "<tr><td>Force-7</td><td>'High Wind'</td><td>28-33 knots 32-38 mph 50-61 km/h 13.9-17.1 m/s</td></tr>";
-  webpage += "<tr><td>Force-8</td><td>'Gale'</td><td>34-40 knots 39-46 mph 62-74 km/h 17.2-20.7 m/s</td></tr>";
-  webpage += "<tr><td>Force-9</td><td>'Severe Gale'</td><td>41-47 knots 47-54 mph 75-88 km/h 20.8-24.4 m/s</td></tr>";
-  webpage += "<tr><td>Force-10</td><td>'Storm'</td><td>48-55 knots 55-63 mph 89-102 km/h 24.5-28.4 m/s</td></tr>";
-  webpage += "<tr><td>Force-11</td><td>'Violent Storm'</td><td>56-63 knots 64-72 mph 103-117 km/h 28.5-32.6 m/s</td></tr>";
-  webpage += "<tr><td>Force-12</td><td>'Hurricane'</td><td>&gt;64 knots &gt;73 mph &gt;118 km/h > 32.6 m/s</td></tr>";
-  webpage += "</table>";
-  webpage += "<h4>OWM API Documentation</h4>";
-  webpage += "<p>See the OpenWeatherMap site for more details of their API data: <a href='https://openweathermap.org/api'>Here</a></p>";
-  webpage += "</div>";
   append_page_footer();
   webserver.send(200, "text/html", webpage);
   webpage = "";
@@ -787,6 +809,371 @@ void HandleInput() {
   UpdateData();
   Homepage();
 }
+#ifdef LANG_EN
+  //#########################################################################################
+  void PreFill() {
+    City                = "Bath";
+    Latitude            = "51.3704";
+    Longitude           = "-2.1376";
+    Language            = "en";
+    Hemisphere          = "north";
+    Units               = "M";
+    TXT_FORECAST_GRAPHS = "5 day / 3 hour forecast";
+    TXT_TEMPDEWPOINT    = "Temperature / Dewpoint";
+    TXT_TEMPERATURE     = "Temperature";
+    TXT_FEELSLIKE       = "Feelslike";
+    TXT_HUMIDITY        = "Humidity";
+    TXT_DEWPOINT        = "Dewpoint";
+    TXT_WINDCHILL       = "Windchill";
+    TXT_WCHILL_HINDEX   = "Windchill / Heat Index";
+    TXT_HEATINDEX       = "Heat Index";
+    TXT_WINDSPEED       = "Windspeed";
+    TXT_PRESSURE        = "Pressure";
+    TXT_CLOUDCOVER      = "Cloud Cover";
+    TXT_VISIBILITY      = "Visibility";
+    TXT_PRECIPITATION   = "Precipitation";
+    TXT_RAINFALL        = "Rainfall";
+    TXT_RAINRATE        = "Rainrate";
+    TXT_SNOWFALL        = "Snowfall";
+    TXT_SNOWRATE        = "Snowrate";
+    TXT_UVINDEX         = "UV Index";
+    //Moon phases
+    TXT_MOON_PHASE1     = "New";
+    TXT_MOON_PHASE2     = "Waxing Crescent";
+    TXT_MOON_PHASE3     = "First Quarter";
+    TXT_MOON_PHASE4     = "Waxing Gibbous";
+    TXT_MOON_PHASE5     = "Full";
+    TXT_MOON_PHASE6     = "Waning Gibbous";
+    TXT_MOON_PHASE7     = "Third Quarter";
+    TXT_MOON_PHASE8     = "Waning Crescent";
+    //Wind
+    TXT_N               = "N";
+    TXT_NE              = "NE";
+    TXT_E               = "E";
+    TXT_SE              = "SE";
+    TXT_S               = "S";
+    TXT_SW              = "SW";
+    TXT_W               = "W";
+    TXT_NW              = "NW";
+    WindspeedUnits      = MPH;    // Change to your desired display format e.g. for KPH 'MetricWindspeed = KPH';
+    TXT_WINDUNITS       = "mph"; // Ensure text here matahces units chosen above! Use a leading space
+    //Windspeed warning colours based on Beaufort scale in kph *** NOTE these are HTML colours, don't translate!
+    TXT_BFS0            = "Calm";
+    TXT_BFS1            = "Light Air";
+    TXT_BFS2            = "Light Breeze";
+    TXT_BFS3            = "Gentle Breeze";
+    TXT_BFS4            = "Moderate Breeze";
+    TXT_BFS5            = "Fresh Breeze";
+    TXT_BFS6            = "Strong Breeze";
+    TXT_BFS7            = "High Wind";
+    TXT_BFS8            = "Gale";
+    TXT_BFS9            = "Severe Gale";
+    TXT_BFS10           = "Storm";
+    TXT_BFS11           = "Violent Storm";
+    TXT_BFS12           = "Hurricane";
+    //Days of the week
+    TXT_SUN             = "Sun";
+    TXT_MON             = "Mon";
+    TXT_TUE             = "Tue";
+    TXT_WED             = "Wed";
+    TXT_THU             = "Thu";
+    TXT_FRI             = "Fri";
+    TXT_SAT             = "Sat";
+    //Months
+    TXT_JAN             = "Jan";
+    TXT_FEB             = "Feb";
+    TXT_MAR             = "Mar";
+    TXT_APR             = "Apr";
+    TXT_MAY             = "May";
+    TXT_JUN             = "Jun";
+    TXT_JUL             = "Jul";
+    TXT_AUG             = "Aug";
+    TXT_SEP             = "Sep";
+    TXT_OCT             = "Oct";
+    TXT_NOV             = "Nov";
+    TXT_DEC             = "Dec";
+    TXT_HI              = "Hi";
+    TXT_LO              = "Lo";
+    TXT_RH              = "RH";
+    // Interface labels
+    TXT_HOME             = "Home";
+    TXT_WMAP             = "Weather Map";
+    TXT_SETUP            = "System Setup";
+    TXT_PREFILL          = "Pre-Fill";
+    TXT_HELP             = "Help";
+    TXT_TITLE            = "ESP Weather Server";
+    TXT_BEAUFORT         = "Beaufort Scale";
+  
+    SaveSettings();
+    UpdateData();
+    Homepage();
+  }
+#endif
+
+#ifdef LANG_ES
+  //#########################################################################################
+  void PreFill() {
+    City                = "Algorta";
+    Latitude            = "43.35";
+    Longitude           = "-3";
+    Language            = "es";
+    Hemisphere          = "north";
+    Units               = "M";
+    TXT_FORECAST_GRAPHS = "Pronóstico a 5 días / 3 horas";
+    TXT_TEMPDEWPOINT    = "Temperatura / Punto de rocío";
+    TXT_TEMPERATURE     = "Temperatura";
+    TXT_FEELSLIKE       = "Sensación";
+    TXT_HUMIDITY        = "Humedad";
+    TXT_DEWPOINT        = "Punto de rocío";
+    TXT_WINDCHILL       = "Sensación térmica";
+    TXT_WCHILL_HINDEX   = "Sensación térmica / Índice de calor";
+    TXT_HEATINDEX       = "Indice de calor";
+    TXT_WINDSPEED       = "Velocidad del viento";
+    TXT_PRESSURE        = "Presión";
+    TXT_CLOUDCOVER      = "Nubosidad";
+    TXT_VISIBILITY      = "Visibilidad";
+    TXT_PRECIPITATION   = "Precipitación";
+    TXT_RAINFALL        = "Lluvia";
+    TXT_RAINRATE        = "Promedio de lluvia";
+    TXT_SNOWFALL        = "Nieve";
+    TXT_SNOWRATE        = "Promedio de nieve";
+    TXT_UVINDEX         = "Índice UV";
+    //Moon phases
+    TXT_MOON_PHASE1     = "Nueva";
+    TXT_MOON_PHASE2     = "Creciente";
+    TXT_MOON_PHASE3     = "Primer cuarto";
+    TXT_MOON_PHASE4     = "Menguante";
+    TXT_MOON_PHASE5     = "Llena";
+    TXT_MOON_PHASE6     = "Menguante";
+    TXT_MOON_PHASE7     = "Tercer cuarto";
+    TXT_MOON_PHASE8     = "Creciente menguante";
+    //Wind
+    TXT_N               = "N";
+    TXT_NE              = "NE";
+    TXT_E               = "E";
+    TXT_SE              = "SE";
+    TXT_S               = "S";
+    TXT_SW              = "SO";
+    TXT_W               = "O";
+    TXT_NW              = "NO";
+    WindspeedUnits      = KPH;    // Change to your desired display format e.g. for KPH 'MetricWindspeed = KPH';
+    TXT_WINDUNITS       = "km/h"; // Ensure text here matahces units chosen above! Use a leading space
+    //Windspeed warning colours based on Beaufort scale in kph *** NOTE these are HTML colours, don't translate!
+    TXT_BFS0            = "Calma";
+    TXT_BFS1            = "Aire ligero";
+    TXT_BFS2            = "Brisa ligera";
+    TXT_BFS3            = "Suave brisa";
+    TXT_BFS4            = "Brisa moderada";
+    TXT_BFS5            = "Brisa fresca";
+    TXT_BFS6            = "Brisa fuerte";
+    TXT_BFS7            = "Fuerte viento";
+    TXT_BFS8            = "Vendaval";
+    TXT_BFS9            = "Vendaval severo";
+    TXT_BFS10           = "Tormenta";
+    TXT_BFS11           = "Tormenta violenta";
+    TXT_BFS12           = "Huracán";
+  //Days of the week
+    TXT_SUN             = "Dom";
+    TXT_MON             = "Lun";
+    TXT_TUE             = "Mar";
+    TXT_WED             = "Mié";
+    TXT_THU             = "Jue";
+    TXT_FRI             = "Vie";
+    TXT_SAT             = "Sáb";
+  //Months
+    TXT_JAN             = "Ene";
+    TXT_FEB             = "Feb";
+    TXT_MAR             = "Mar";
+    TXT_APR             = "Abr";
+    TXT_MAY             = "May";
+    TXT_JUN             = "Jun";
+    TXT_JUL             = "Jul";
+    TXT_AUG             = "Ago";
+    TXT_SEP             = "Sep";
+    TXT_OCT             = "Oct";
+    TXT_NOV             = "Nov";
+    TXT_DEC             = "Dic";
+    TXT_HI               = "Máx.";
+    TXT_LO               = "Mín.";
+    TXT_RH               = "Humedad";
+    // Interface labels
+    TXT_HOME             = "Principal";
+    TXT_WMAP             = "Mapa Meteorológico";
+    TXT_SETUP            = "Ajustes";
+    TXT_PREFILL          = "Pre-Carga ES";
+    TXT_HELP             = "Ayuda";
+    TXT_TITLE            = "Servidor Meteorológico con ESP";
+    TXT_BEAUFORT         = "Escala Beaufort";
+  
+    SaveSettings();
+    UpdateData();
+    Homepage();
+  }
+#endif
+#ifdef LANG_EN
+//#########################################################################################
+void Help() {
+  append_page_header(true);
+  webpage += "<div style='text-align:left;'>";
+  webpage += "<h4>System Set-up</h4>";
+  webpage += "<a>1. Enter your City/Location name, choose any name.</a><br>";
+  webpage += "<a>2. Enter your location Latitude and Longitude, e.g. 51.38, -2.33</a><br>";
+  webpage += "<a>&nbsp;&nbsp;&nbsp;<i>- Use negative numbers for South of the Equator and East of the Meridian.</i></a><br>";
+  webpage += "<a>3. Enter your Language e.g. 'en', see below for OWM supported languages.</a><br>";
+  webpage += "<a>4. Enter your locations Hemisphere, North or South.</a><br>";
+  webpage += "<a>5. Enter your desired wind units either MPS (Metres-per-Second), MPH (Miles-per-hour), KPH (Kilometres-per-hour) or KTS (Knots)</a><br>";
+  webpage += "<a>6. Enter your desired Units either Metric or Imperial.</a><br>";
+  webpage += "<a>7. Enter the text for each item in the Language Translation Table. e.g. for 'de' 'Pressure' enter 'Druck'</a><br>";
+  webpage += "<a><i>&nbsp;&nbsp;&nbsp; - For months you could use '01' for JAN, etc.</i></a><br>";
+  webpage += "<a>8. Click on ENTER to save</a><br>";
+  webpage += "<h4>Open Weather Map supports the following languages:</h4>";
+  webpage += "<div class='row'><div class='helpcolumn'>";
+  webpage += "<a>af Afrikaans, al Albanian, ar Arabic, az Azerbaijani</a><br>";
+  webpage += "<a>bg Bulgarian</a><br>";
+  webpage += "<a>ca Catalan, cz Czech</a><br>";
+  webpage += "<a>da Danish, de German</a><br>";
+  webpage += "<a>el Greek, en English, eu Basque</a><br>";
+  webpage += "<a>fa Persian (Farsi), fi Finnish, fr French</a><br>";
+  webpage += "<a>gl Galician</a><br>";
+  webpage += "<a>he Hebrew, hi Hindi, hr Croatian, hu Hungarian</a><br>";
+  webpage += "<a>id Indonesian, it Italian</a><br>";
+  webpage += "<a>ja Japanese</a><br>";
+  webpage += "<a>kr Korean</a><br>";
+  webpage += "</div><div class='helpcolumn'>";
+  webpage += "<a>la Latvian, lt Lithuanian</a><br>";
+  webpage += "<a>mk Macedonian<a/><br>";
+  webpage += "<a>no Norwegian, nl Dutch</a><br>";
+  webpage += "<a>pl Polish, pt Portuguese, pt_br Português Brasil</a><br>";
+  webpage += "<a>ro Romanian, ru Russian</a><br>";
+  webpage += "<a>sv, se Swedish, sk Slovak, sl Slovenian, sp, es Spanish, sr Serbian</a><br>";
+  webpage += "<a>th Thai, tr Turkish</a><br>";
+  webpage += "<a>ua, uk Ukrainian</a><br>";
+  webpage += "<a>vi Vietnamese</a><br>";
+  webpage += "<a>zh_cn Chinese Simplified, zh_tw Chinese Traditional, zu Zulu</a><br>";
+  webpage += "</div></div>";
+  webpage += "<a>&nbsp;&nbsp;&nbsp;<i> - Example: German set language = 'de'</i></a><br>";
+  webpage += "<h4>Weather descriptions used and translated by OpenWeatherMap:</h4>";
+  webpage += "<a>Clear sky, Few clouds, Scattered clouds, Broken clouds, Shower rain, Rain, Heavy Intensity Rain, Moderate Rain, Light Rain, Thunderstorm, Snow, Mist</a><br>";
+  webpage += "<h4>UV Index</h4>";
+  webpage += "<a>The UV index (or ultraviolet index) is an international standard for measuring the ultraviolet radiation at a particular place and time.</a><br>";
+  webpage += "<a><i>&nbsp;&nbsp;&nbsp; - Note: OWM issues the UV index at 1200 / Midday for the next 24-hours</i></a><br>";
+  webpage += "<h4>Moon Phases</h4>";
+  webpage += "<table class='helptable'>";
+  webpage += "<tr><td>Phase-1</td><td>New</td></tr>";
+  webpage += "<tr><td>Phase-2</td><td>Waxing Crescent</td></tr>";
+  webpage += "<tr><td>Phase-3</td><td>First Quarter</td></tr>";
+  webpage += "<tr><td>Phase-4</td><td>Waxing Gibbous</td></tr>";
+  webpage += "<tr><td>Phase-5</td><td>Full</td></tr>";
+  webpage += "<tr><td>Phase-6</td><td>Waning Gibbous</td></tr>";
+  webpage += "<tr><td>Phase-7</td><td>Last Quarter</td></tr>";
+  webpage += "<tr><td>Phase-8</td><td>Waning Crescent</td></tr>";
+  webpage += "</table>";
+  webpage += "<h4>Beafort Scale wind speeds</h4>";
+  webpage += "<table class='helptable'>";
+  webpage += "<tr><td>Force-0</td><td>'Calm'</td><td>&lt;1 knot &lt;1 mph &lt;2 km/h &lt;0.5 m/s</td></tr>";
+  webpage += "<tr><td>Force-1</td><td>'Light Air'</td><td>1-3 knots 1-3 mph 2-5 km/h 0.5-1.5 m/s</td></tr>";
+  webpage += "<tr><td>Force-2</td><td>'Light Breeze'</td><td>4-6 knots 4-7 mph 6-11 km/h 1.6-3.3 m/s</td></tr>";
+  webpage += "<tr><td>Force-3</td><td>'Gentle Breeze'</td><td>7-10 knots 8-12 mph 12-19 km/h 3.4-5.5 m/s</td></tr>";
+  webpage += "<tr><td>Force-4</td><td>'Moderate Breeze'</td><td>11-16 knots 13-18 mph 20-28 km/h 5.6-7.9 m/s</td></tr>";
+  webpage += "<tr><td>Force-5</td><td>'Fresh Breeze'</td><td>17-21 knots 19-24 mph 29-38 km/h 8.0-10.7 m/s</td></tr>";
+  webpage += "<tr><td>Force-6</td><td>'Strong Breeze'</td><td>22-27 knots 25-31 mph 39-48 km/h 10.8-13.8 m/s</td></tr>";
+  webpage += "<tr><td>Force-7</td><td>'High Wind'</td><td>28-33 knots 32-38 mph 50-61 km/h 13.9-17.1 m/s</td></tr>";
+  webpage += "<tr><td>Force-8</td><td>'Gale'</td><td>34-40 knots 39-46 mph 62-74 km/h 17.2-20.7 m/s</td></tr>";
+  webpage += "<tr><td>Force-9</td><td>'Severe Gale'</td><td>41-47 knots 47-54 mph 75-88 km/h 20.8-24.4 m/s</td></tr>";
+  webpage += "<tr><td>Force-10</td><td>'Storm'</td><td>48-55 knots 55-63 mph 89-102 km/h 24.5-28.4 m/s</td></tr>";
+  webpage += "<tr><td>Force-11</td><td>'Violent Storm'</td><td>56-63 knots 64-72 mph 103-117 km/h 28.5-32.6 m/s</td></tr>";
+  webpage += "<tr><td>Force-12</td><td>'Hurricane'</td><td>&gt;64 knots &gt;73 mph &gt;118 km/h > 32.6 m/s</td></tr>";
+  webpage += "</table>";
+  webpage += "<h4>OWM API Documentation</h4>";
+  webpage += "<p>See the OpenWeatherMap site for more details of their API data: <a href='https://openweathermap.org/api'>Here</a></p>";
+  webpage += "</div>";
+  append_page_footer();
+  webserver.send(200, "text/html", webpage);
+  webpage = "";
+}
+#endif
+#ifdef LANG_ES
+//#########################################################################################
+void Help() {
+  append_page_header(true);
+  webpage += "<div style='text-align:left;'>";
+  webpage += "<h4>Ajustes del Sistema</h4>";
+  webpage += "<a>1. Intrroduce tu localidad, usa el nombre que quieras.</a><br>";
+  webpage += "<a>2. Introduce la Latitud y Longitud de tu localidad, p.ej. 51.38, -2.33</a><br>";
+  webpage += "<a>&nbsp;&nbsp;&nbsp;<i>- Usa números negativos para el Sur del Ecuador y al Este de Greenwich.</i></a><br>";
+  webpage += "<a>3. Introduce tu idioma p.ej. 'es', mira más abajo los idiomas soportados por OWM.</a><br>";
+  webpage += "<a>4. Introduce el hemiferio de tu localidad, Norte o Sur.</a><br>";
+  webpage += "<a>5. Introduce las unidades de velocidad del viento, bien MPS (Metros-por-Segundo), MPH (Millas-por-hora), KPH (Kilometros-por-hora) or KTS (Nudos)</a><br>";
+  webpage += "<a>6. Introduce el sistema métrico, bien Métrico o Imperial.</a><br>";
+  webpage += "<a>7. Introduce el texto para cada item en la Tabla de traducción de Idioma. p.ej. para 'de' 'Presión' introduce 'Druck'</a><br>";
+  webpage += "<a><i>&nbsp;&nbsp;&nbsp; - Para los meses puedes usar '01' para ENE, etc.</i></a><br>";
+  webpage += "<a>8. Pulsa en ENTER para guardar</a><br>";
+  webpage += "<h4>Open Weather Map soporta los siguientes idiomas:</h4>";
+  webpage += "<div class='row'><div class='helpcolumn'>";
+  webpage += "<a>af Afrikaan, al Albano, ar Arabe, az Azerbaiyaní</a><br>";
+  webpage += "<a>bg Blgaro</a><br>";
+  webpage += "<a>ca Catal´án, cz Checo</a><br>";
+  webpage += "<a>da Danés, de Alemán</a><br>";
+  webpage += "<a>el Griego, en Inglés, eu Euskera</a><br>";
+  webpage += "<a>fa Persa (Farsi), fi Finés, fr Francés</a><br>";
+  webpage += "<a>gl Gallego</a><br>";
+  webpage += "<a>he Hebreo, hi Hindi, hr Croata, hu Hungaro</a><br>";
+  webpage += "<a>id Indonesio, it Italiano</a><br>";
+  webpage += "<a>ja Japones</a><br>";
+  webpage += "<a>kr Coreano</a><br>";
+  webpage += "</div><div class='helpcolumn'>";
+  webpage += "<a>la Latvio, lt Lituano</a><br>";
+  webpage += "<a>mk Macedonio<a/><br>";
+  webpage += "<a>no Noruego, nl Holandes</a><br>";
+  webpage += "<a>pl Polaco, pt Portugués, pt_br Portugués Brasileño</a><br>";
+  webpage += "<a>ro Rumano, ru Ruso</a><br>";
+  webpage += "<a>sv, se Sueco, sk Eslovaco, sl Esloveno, sp, es Español, sr Serbio</a><br>";
+  webpage += "<a>th Thailandés, tr Turco</a><br>";
+  webpage += "<a>ua, uk Ucraniano</a><br>";
+  webpage += "<a>vi Vietnamita</a><br>";
+  webpage += "<a>zh_cn Chino Simplificado, zh_tw Chino Tradicional, zu Zulú</a><br>";
+  webpage += "</div></div>";
+  webpage += "<a>&nbsp;&nbsp;&nbsp;<i> - Ejemplo: Poner idioma en Alemán = 'de'</i></a><br>";
+  webpage += "<h4>Descripciones del tiempo usadas y traducidas por OpenWeatherMap:</h4>";
+  webpage += "<a>Clear sky, Few clouds, Scattered clouds, Broken clouds, Shower rain, Rain, Heavy Intensity Rain, Moderate Rain, Light Rain, Thunderstorm, Snow, Mist</a><br>";
+  webpage += "<h4>UV Index</h4>";
+  webpage += "<a>El Indicde UV (o índice ultravioleta) es un estándar internacional para medir la radiación ultravioleta en un lugar y tiempo concretos.</a><br>";
+  webpage += "<a><i>&nbsp;&nbsp;&nbsp; - Nota: OWM envía el índice UV a las 12:00 / Mediodía para las siguientes 24 horas</i></a><br>";
+  webpage += "<h4>Fases de la luna</h4>";
+  webpage += "<table class='helptable'>";
+  webpage += "<tr><td>Phase-1</td><td>Nueva</td></tr>";
+  webpage += "<tr><td>Phase-2</td><td>Creciente</td></tr>";
+  webpage += "<tr><td>Phase-3</td><td>Primer cuarto</td></tr>";
+  webpage += "<tr><td>Phase-4</td><td>Menguante</td></tr>";
+  webpage += "<tr><td>Phase-5</td><td>Llena</td></tr>";
+  webpage += "<tr><td>Phase-6</td><td>Menguante</td></tr>";
+  webpage += "<tr><td>Phase-7</td><td>Último cuarto</td></tr>";
+  webpage += "<tr><td>Phase-8</td><td>Creciente menguante</td></tr>";
+  webpage += "</table>";
+  webpage += "<h4>Escala Beaufort de velocidad del viento</h4>";
+  webpage += "<table class='helptable'>";
+  webpage += "<tr><td>Fuerza-0</td><td>'Calma'</td><td>&lt;1 nudo &lt;1 mph &lt;2 km/h &lt;0.5 m/s</td></tr>";
+  webpage += "<tr><td>Fuerza-1</td><td>'Aire ligero'</td><td>1-3 nudos 1-3 mph 2-5 km/h 0.5-1.5 m/s</td></tr>";
+  webpage += "<tr><td>Fuerza-2</td><td>'Brisa ligera'</td><td>4-6 nudos 4-7 mph 6-11 km/h 1.6-3.3 m/s</td></tr>";
+  webpage += "<tr><td>Fuerza-3</td><td>'Suave brisa'</td><td>7-10 nudos 8-12 mph 12-19 km/h 3.4-5.5 m/s</td></tr>";
+  webpage += "<tr><td>Fuerza-4</td><td>'Brisa moderada'</td><td>11-16 nudos 13-18 mph 20-28 km/h 5.6-7.9 m/s</td></tr>";
+  webpage += "<tr><td>Fuerza-5</td><td>'Brisa fresca'</td><td>17-21 nudos 19-24 mph 29-38 km/h 8.0-10.7 m/s</td></tr>";
+  webpage += "<tr><td>Fuerza-6</td><td>'Brisa fuerte'</td><td>22-27 nudos 25-31 mph 39-48 km/h 10.8-13.8 m/s</td></tr>";
+  webpage += "<tr><td>Fuerza-7</td><td>'Fuerte viento'</td><td>28-33 nudos 32-38 mph 50-61 km/h 13.9-17.1 m/s</td></tr>";
+  webpage += "<tr><td>Fuerza-8</td><td>'Vendaval'</td><td>34-40 nudos 39-46 mph 62-74 km/h 17.2-20.7 m/s</td></tr>";
+  webpage += "<tr><td>Fuerza-9</td><td>'Vendaval severo'</td><td>41-47 nudos 47-54 mph 75-88 km/h 20.8-24.4 m/s</td></tr>";
+  webpage += "<tr><td>Fuerza-10</td><td>'Tormenta'</td><td>48-55 nudos 55-63 mph 89-102 km/h 24.5-28.4 m/s</td></tr>";
+  webpage += "<tr><td>Fuerza-11</td><td>'Tormenta violenta'</td><td>56-63 nudos 64-72 mph 103-117 km/h 28.5-32.6 m/s</td></tr>";
+  webpage += "<tr><td>Fuerza-12</td><td>'Huracán'</td><td>&gt;64 nudos &gt;73 mph &gt;118 km/h > 32.6 m/s</td></tr>";
+  webpage += "</table>";
+  webpage += "<h4>Documentación del API de OWM</h4>";
+  webpage += "<p>Ver la web de OpenWeatherMap para más detalles de su API: <a href='https://openweathermap.org/api'>Here</a></p>";
+  webpage += "</div>";
+  append_page_footer();
+  webserver.send(200, "text/html", webpage);
+  webpage = "";
+}
+#endif
 //#########################################################################################
 void append_page_header(bool Header) {
   webpage  = "<!DOCTYPE html>";
@@ -802,7 +1189,7 @@ void append_page_header(bool Header) {
   webpage += " *              {box-sizing:border-box;}";
   webpage += " .column        {float:left;width:auto;padding:0.214em;}";
   webpage += " .headcolumn    {float:left;width:25%;padding:0.214em;}";
-  webpage += " .helpcolumn    {float:left;width:30%;padding:0.214em;}";
+  webpage += " .helpcolumn    {float:left;width:50%;padding:0.214em;}";
   webpage += " .row:after     {content:'';clear:both;display:table;}";
   webpage += " .newtable     *{table-layout:fixed;padding:0.357em;padding-top:0.14em;padding-bottom:0;text-align:center;}";
   webpage += " .newtable   td {width:7em;}";
@@ -839,7 +1226,7 @@ void append_page_header(bool Header) {
   webpage += "</head>";
   webpage += "<body>";
   UpdateLocalTime();
-  webpage += "<h1><span>ESP Weather Server </span><span style='font-size:12px;'> (" + Time_str + " / " + Date_str + " )</span></h1>";
+  webpage += "<h1><span>" + TXT_TITLE + " </span><span style='font-size:12px;'> (" + Time_str + " / " + Date_str + " )</span></h1>";
   if (Header) {
     webpage += "<h3 class='style2'>" + City + "</h3>";
   }
@@ -847,12 +1234,11 @@ void append_page_header(bool Header) {
 //#########################################################################################
 void append_page_footer() { // Saves repeating many lines of code for HTML page footers
   webpage += "<footer><ul>";
-  webpage += "<li><a href = '/'>Home</a></li>";
-  webpage += "<li><a href = '/wxmap'>Weather Map</a></li>";
-  webpage += "<li><a href = '/setup'>System Setup</a></li>";
-  webpage += "<li><a href = '/prefillEN'>Pre-Fill EN</a></li>";
-  webpage += "<li><a href = '/prefillES'>Pre-Fill ES</a></li>";
-  webpage += "<li><a href = '/help'>Help</a></li></ul>";
+  webpage += "<li><a href = '/'>" + TXT_HOME + "</a></li>";
+  webpage += "<li><a href = '/wxmap'>" + TXT_WMAP + "</a></li>";
+  webpage += "<li><a href = '/setup'>" + TXT_SETUP + "</a></li>";
+  webpage += "<li><a href = '/prefillEN'>" + TXT_PREFILL + "</a></li>";
+  webpage += "<li><a href = '/help'>" + TXT_HELP + "</a></li></ul>";
   webpage += "<p>&copy; Open Weather Map Data and Icons 2020 / ";
   webpage += "&copy; " + String(char(byte(0x40 >> 1))) + String(char(byte(0x88 >> 1))) + String(char(byte(0x5c >> 1))) + String(char(byte(0x98 >> 1))) + String(char(byte(0x5c >> 1)));
   webpage += String(char((0x84 >> 1))) + String(char(byte(0xd2 >> 1))) + String(char(0xe4 >> 1)) + String(char(0xc8 >> 1)) + String(char(byte(0x40 >> 1)));
@@ -1789,6 +2175,7 @@ void SaveSettings() {
     Serial.println("Settings saved");
   }
 }
+
 //#########################################################################################
 void SunrisesetIcon() {
   webpage += "<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAD/ElEQVRYR+2Wf0xVZRjHP8+5h4sXK0xnEPMPbDRXjICQ";
