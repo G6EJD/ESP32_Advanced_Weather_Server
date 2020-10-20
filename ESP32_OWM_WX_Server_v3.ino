@@ -2,13 +2,16 @@
   Uses mDNS service to allow a logical name to be used e.g. http://Wxserver.local instead of http://192.168.0.16/
   ####################################################################################################################################
   This software, the ideas and concepts is Copyright (c) David Bird 2020. All rights to this software are reserved.
+
   Any redistribution or reproduction of any part or all of the contents in any form is prohibited other than the following:
   1. You may print or download to a local hard disk extracts for your personal and non-commercial use only.
   2. You may copy the content to individual third parties for their personal use, but only if you acknowledge the author David Bird as the source of the material.
   3. You may not, except with my express written permission, distribute or commercially exploit the content.
   4. You may not transmit it or store it in any other website or other form of electronic retrieval system for commercial purposes.
+
   The above copyright ('as annotated') notice and this permission notice shall be included in all copies or substantial portions of the Software and where the
   software use is visible to an end-user.
+
   THE SOFTWARE IS PROVIDED "AS IS" FOR PRIVATE USE ONLY, IT IS NOT FOR COMMERCIAL USE IN WHOLE OR PART OR CONCEPT. FOR PERSONAL USE IT IS SUPPLIED WITHOUT WARRANTY
   OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
   IN NO EVENT SHALL THE AUTHOR OR COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
@@ -20,6 +23,7 @@
 //LANGUAGES
 //#include "credentials_EN.h" // See "credentials_EN.h" tab and enter your OWM API key and set the Wifi SSID and PASSWORD
 #include "credentials_ES.h"   // o la pestaña "credentials_ES.h" e introduce tu propia clave de OWM API y ajusta Wifi SSID y PASSWORD#include "credentials_ES_PRIVADA.h"
+
 
 #include <ArduinoJson.h>    // https://github.com/bblanchon/ArduinoJson Install by: Sketch/ Include Library / Manage Libaries / enter 'JSON', find, select then install
 #include <WiFi.h>           // Built-in
