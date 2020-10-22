@@ -18,7 +18,13 @@
   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   See more at http://www.dsbird.org.uk
 */
-#include "credentials_EN.h" // See 'owm_credentials' tab and enter your OWM API key and set the Wifi SSID and PASSWORD
+
+
+//LANGUAGES
+//#include "credentials_EN.h" // See "credentials_EN.h" tab and enter your OWM API key and set the Wifi SSID and PASSWORD
+#include "credentials_ES.h"   // o la pestaña "credentials_ES.h" e introduce tu propia clave de OWM API y ajusta Wifi SSID y PASSWORD#include "credentials_ES_PRIVADA.h"
+
+
 #include <ArduinoJson.h>    // https://github.com/bblanchon/ArduinoJson Install by: Sketch/ Include Library / Manage Libaries / enter 'JSON', find, select then install
 #include <WiFi.h>           // Built-in
 #include <WebServer.h>      // Built-in
