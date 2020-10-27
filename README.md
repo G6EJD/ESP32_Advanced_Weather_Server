@@ -10,6 +10,10 @@ Then connect to server with http://192.168.0.19/ or http://wxserver.local/
 System Set-up:
 
 Get a free OWM API Key from here: https://openweathermap.org/
+Copy the following files to your sketch folder:
+1. ESP32_OWM_WX_Server_v3.ino
+2. owm_credentials.h
+3. credentials_EN.h for English
 
 Update the 'owm_credentials.h; tab with your credentials for WiFi and OWM
 
