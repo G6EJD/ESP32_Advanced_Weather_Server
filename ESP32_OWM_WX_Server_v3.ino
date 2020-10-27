@@ -1721,7 +1721,8 @@ void StartSPIFFS() {
     if (SPIFFS.format() == true) Serial.println("SPIFFS formatted successfully");
     if (SPIFFS.begin() == false) Serial.println("SPIFFS failed to start...");
 #else
-    SPIFFS.begin();
+    Serial.println("Formatting SPIFFS...");
+    SPIFFS.begin(true); // Now format SPIFFS
     File datafile = SPIFFS.open("/" + DataFile, FILE_READ);
     if (!datafile || !datafile.isDirectory()) {
       Serial.println("SPIFFS failed to start..."); // If ESP32 nothing more can be done, so delete and then create another file
