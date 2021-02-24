@@ -26,6 +26,11 @@ Update the 'owm_credentials.h; tab with your credentials for WiFi and OWM
 6. Enter your desired Units either Metric or Imperial.
 7. Enter the text for each item in the Language Translation Table. e.g. for 'de' 'Pressure' enter 'Druck'
     - For months you could use '01' for JAN, etc.
+
+If the SPIFFS wont start, or recover settings, then:
+1, Uncomment this line:   //SPIFFS.remove("/"+DataFile);             // In-case SPIFFS file gets corrupted, it can happen!
+2. Compile and upload, restart the EPS
+3. Comment line out, then re-compile and upload.
     
 OWM Supports the following languages:
 af Afrikaans, al Albanian, ar Arabic, az Azerbaijani
