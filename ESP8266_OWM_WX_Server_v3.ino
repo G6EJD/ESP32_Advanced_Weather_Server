@@ -1685,7 +1685,7 @@ bool obtain_wx_data(WiFiClient& client, const String& RequestType) {
   if (RequestType != "weather") {
     uri += "&cnt=" + String(max_readings);
   }
-  if (RequestType == "oncecall")     {
+  if (RequestType == "onecall")     {
     uri += "&exclude=minutely,hourly,daily,alerts";
   }
   Serial.println(uri);
