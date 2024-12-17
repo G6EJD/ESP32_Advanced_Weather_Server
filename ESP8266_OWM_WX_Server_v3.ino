@@ -1225,7 +1225,6 @@ uint8_t StartWiFi() {
   delay(1200);
   WiFi.mode(WIFI_STA); // switch off AP
   WiFi.setAutoConnect(true);
-  WiFi.setAutoReconnect(true);
   WiFi.begin(ssid, password);
   unsigned long start = millis();
   uint8_t connectionStatus;
